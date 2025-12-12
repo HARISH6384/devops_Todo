@@ -1,45 +1,45 @@
-# name: TODO ci
+name: TODO ci
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
  
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#     services:
-#       mongo:
-#         image: mongo
-#         ports:
-#           - 27017:27017
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
 
-#     steps:
-#       - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: '22'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
 
-#       - name: Install backend dependencies
-#         working-directory: ./backend
-#         run: npm install
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm install
 
-#       - name: Run backend tests
-#         working-directory: ./backend
-#         env:
-#           MONGO_URL: mongodb://mongo:27017/Todo2
-#         run: npm test
+      - name: Run backend tests
+        working-directory: ./backend
+        env:
+          MONGO_URL: mongodb://mongo:27017/Todo2
+        run: npm test
 
-#       - name: Install frontend dependencies
-#         working-directory: ./frontend
-#         run: npm install
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
 
-#       - name: Run frontend tests
-#         working-directory: ./frontend
-#         run: npm test
+      - name: Run frontend tests
+        working-directory: ./frontend
+        run: npm test
 
 
 
