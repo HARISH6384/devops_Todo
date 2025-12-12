@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# Node modules
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Mongo memory server cache
+backend/node_modules/.cache/
+frontend/node_modules/.cache/
