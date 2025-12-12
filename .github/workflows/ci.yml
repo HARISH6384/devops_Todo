@@ -16,17 +16,26 @@ jobs:
           - 27017:27017
 
     steps:
+      # Checkout repository
       - uses: actions/checkout@v3
 
+      # Setup Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22'
 
-      # Backend
+      # ---------------------
+      # BACKEND
+      # ---------------------
+
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
+
+      - name: Fix jest permission for backend
+        working-directory: ./backend
+        run: chmod +x ./node_modules/.bin/jest
 
       - name: Wait for MongoDB
         run: |
@@ -42,10 +51,17 @@ jobs:
           MONGO_URL: mongodb://mongo:27017/Todo2
         run: npx jest
 
-      # Frontend
+      # ---------------------
+      # FRONTEND
+      # ---------------------
+
       - name: Install frontend dependencies
         working-directory: ./frontend
         run: npm install
+
+      - name: Fix jest permission for frontend (if tests exist)
+        working-directory: ./frontend
+        run: chmod +x ./node_modules/.bin/jest || true
 
       - name: Run frontend tests
         working-directory: ./frontend
