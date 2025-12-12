@@ -23,16 +23,26 @@ jobs:
         with:
           node-version: '22'
 
+      # Backend
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
+
+      - name: Wait for MongoDB
+        run: |
+          for i in {1..10}; do
+            nc -z localhost 27017 && echo "MongoDB is up!" && break
+            echo "Waiting for MongoDB..."
+            sleep 2
+          done
 
       - name: Run backend tests
         working-directory: ./backend
         env:
           MONGO_URL: mongodb://mongo:27017/Todo2
-        run: npm test
+        run: npx jest
 
+      # Frontend
       - name: Install frontend dependencies
         working-directory: ./frontend
         run: npm install
@@ -40,7 +50,3 @@ jobs:
       - name: Run frontend tests
         working-directory: ./frontend
         run: npm test
-
-
-
-
